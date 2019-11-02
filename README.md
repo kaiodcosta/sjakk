@@ -19,6 +19,8 @@ Contributors are welcomed.
 
 ## Releases
 
+Alpha 1: [Sjakk 2019 v0.1.285-alpha](https://github.com/snorkelbuckle/sjakk/releases/tag/2019v0.1.285-alpha)
+
 The current released version is alpha level, this is the first release.  *Alpha* means
 that it has bugs, and definately has missing features.  It is not feature complete.
 Aside from that, it is suprisingly playable, that is, no major gotcha bugs yet.
