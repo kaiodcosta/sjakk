@@ -1,0 +1,19 @@
+True Type Font conversion to SVG
+    https://convertio.co/font-converter/
+
+SVG Converter to Individual Images
+    BirdFont for Windows
+
+Font Machine.  Looks like something to invest in to enable creation of custom fonts.
+    https://glyphter.com/
+
+
+How to use QVector as multi-dimensional array
+    http://www.cplusplus.com/forum/articles/7459/
+
+
+Process to convert TTF chess fonts to SVG images
+    1. Upload TTF font to converter at convertio.co and convert to SVG
+    2. Open SVG from convertio.co
+    3. Select individual glyphs and convert to SVG image.
+

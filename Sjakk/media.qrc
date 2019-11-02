@@ -1,0 +1,44 @@
+<RCC>
+    <qresource prefix="/">
+        <file>media/sounds/moved.wav</file>
+        <file>media/pieces/Alpha/Alpha_king-1.svg</file>
+        <file>media/pieces/Chess-Basic/Chess_bdt45.svg</file>
+        <file>media/pieces/Chess-Basic/Chess_blt45.svg</file>
+        <file>media/pieces/Chess-Basic/Chess_kdt45.svg</file>
+        <file>media/pieces/Chess-Basic/Chess_klt45.svg</file>
+        <file>media/pieces/Chess-Basic/Chess_ndt45.svg</file>
+        <file>media/pieces/Chess-Basic/Chess_nlt45.svg</file>
+        <file>media/pieces/Chess-Basic/Chess_pdt45.svg</file>
+        <file>media/pieces/Chess-Basic/Chess_plt45.svg</file>
+        <file>media/pieces/Chess-Basic/Chess_qdt45.svg</file>
+        <file>media/pieces/Chess-Basic/Chess_qlt45.svg</file>
+        <file>media/pieces/Chess-Basic/Chess_rdt45.svg</file>
+        <file>media/pieces/Chess-Basic/Chess_rlt45.svg</file>
+        <file>media/images/black-and-white-2558362_640.jpg</file>
+        <file>media/images/black-and-white-2558362_1920.jpg</file>
+        <file>media/images/chess-2834397_640.jpg</file>
+        <file>media/images/chess-2834397_1920.jpg</file>
+        <file>media/images/chess-4067149_640.jpg</file>
+        <file>media/images/chess-4067149_1920.jpg</file>
+        <file>media/icons/Becris/refresh.svg</file>
+        <file>media/icons/Freepik/connect.svg</file>
+        <file>media/icons/Freepik/plug.svg</file>
+        <file>media/icons/Freepik/time-out.svg</file>
+        <file>media/icons/Freepik/website.svg</file>
+        <file>media/icons/Good Ware/tie.svg</file>
+        <file>media/icons/Maxim Basinski/cancel.svg</file>
+        <file>media/icons/Smashicons/checkmate.svg</file>
+        <file>media/icons/Vaadin/turn.svg</file>
+        <file>media/documents/COPYING</file>
+        <file>media/documents/copyright.txt</file>
+        <file>media/documents/license-notice.txt</file>
+        <file>media/documents/file-license-notice.txt</file>
+        <file>media/icons/Freepik/v-line.svg</file>
+        <file>media/sounds/game-over.wav</file>
+        <file>media/sounds/chess-move-on-alabaster.wav</file>
+        <file>media/icons/seek-ad.svg</file>
+        <file>media/icons/seek-ad-1.svg</file>
+        <file>media/icons/seek-ad-3.svg</file>
+        <file>media/icons/seek-ad-15.svg</file>
+    </qresource>
+</RCC>

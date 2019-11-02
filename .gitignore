@@ -29,6 +29,14 @@ ui_*.h
 Makefile*
 *build-*
 
+# Qt build dirs in non-shadow mode
+/debug
+/build
+/release
+
+# Qt custom builds dir in shadow mode
+/builds
+
 # Qt unit tests
 target_wrapper.*
 
@@ -41,3 +49,6 @@ target_wrapper.*
 
 # QtCreator CMake
 CMakeLists.txt.user*
+
+# Log files
+/logs
