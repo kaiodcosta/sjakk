@@ -20,7 +20,6 @@ Contributors are welcomed.
 ## Issues and Project Planning
 
 Please submit bug reports, feature requests, or questions at the [Issues Tracker](https://github.com/snorkelbuckle/sjakk/issues).
-You can find the current project planning board at [Pivotal Tracker - Sjakk](https://www.pivotaltracker.com/reports/v2/projects/2412350/overview).
 
 
 ## Releases
