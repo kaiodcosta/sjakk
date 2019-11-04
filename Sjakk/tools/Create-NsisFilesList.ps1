@@ -1,7 +1,8 @@
 ﻿param(
-     [Parameter(Mandatory=$false)][String]$PackageDir,
-     [Parameter(Mandatory=$false)][String]$InstallFilesHdr,
-     [Parameter(Mandatory=$false)][String]$UninstallFilesHdr
+    [Parameter(Mandatory=$false)][String]$PackageDir,
+    [Parameter(Mandatory=$false)][String]$InstallHdr,
+    [Parameter(Mandatory=$false)][String]$UninstallHdr
+
 )
 
 Function Build-Install-List
@@ -62,22 +63,22 @@ Function Build-Uninstall-List
     " "
 }
 
+# Build installation file listing and uninstall listing
 $chop_path = $PackageDir
 $dlist = Get-ChildItem -Path $PackageDir
 $inst_list = Build-Install-List $PackageDir
 $uninst_list = Build-Uninstall-List $PackageDir
 
-$stream = [System.IO.StreamWriter] $("$PackageDir" + '\' + "$($InstallFilesHdr)")
+$stream = [System.IO.StreamWriter] $("$PackageDir" + '\' + "$InstallHdr")
 foreach ($id in $inst_list)
 {
     $stream.WriteLine($id)
 }
 $stream.Close()
 
-$stream = [System.IO.StreamWriter] $("$PackageDir" + '\' + "$($UninstallFilesHdr)")
+$stream = [System.IO.StreamWriter] $("$PackageDir" + '\' + "$UninstallHdr")
 foreach ($id in $uninst_list)
 {
     $stream.WriteLine($id)
 }
 $stream.Close()
-

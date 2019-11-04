@@ -42,7 +42,8 @@ SOURCES += \
     infomanager.cpp \
     main.cpp \
     sjakkwindow.cpp \
-    soundmanager.cpp
+    soundmanager.cpp \
+    timeseal/timeseal.cpp
 
 HEADERS += \
     commandhistory.h \
@@ -71,7 +72,8 @@ HEADERS += \
     historylineedit.h \
     infomanager.h \
     sjakkwindow.h \
-    soundmanager.h \
+    soundmanager.h \ \
+    timeseal/timeseal.h
 
 
 FORMS += \
@@ -103,17 +105,12 @@ DISTFILES += \
     reference/sample-input-gamelisting.txt \
     reference/seekinfo-spec.txt \
     reference/style12-spec.txt \
+    tools/Create-NsisFilesInstallSection.ps1 \
     tools/Create-NsisPackage.ps1 \
     tools/Get-FolderSize.ps1 \
     tools/Create-VersionHeader.ps1 \
-    tools/Ini-Files.ps1
+    tools/Ini-Files.ps1 \
+    tools/Prep-Package.bat
 
 RESOURCES += \
     media.qrc
-
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Timeseal/release/ -lTimeseal
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Timeseal/debug/ -lTimeseal
-else:unix: LIBS += -L$$OUT_PWD/../Timeseal/ -lTimeseal
-
-INCLUDEPATH += $$PWD/../Timeseal
-DEPENDPATH += $$PWD/../Timeseal

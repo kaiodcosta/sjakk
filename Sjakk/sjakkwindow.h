@@ -40,7 +40,7 @@ along with Sjakk.  If not, see <https://www.gnu.org/licenses/>.
 #include "dialogs/aboutdialog.h"
 #include "dialogs/seekdialog.h"
 #include "dialogs/preferencesdialog.h"
-#include "timeseal.h"
+#include "timeseal/timeseal.h"
 #include "config.h"
 
 namespace Ui
