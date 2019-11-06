@@ -25,4 +25,5 @@ Please submit bug reports, feature requests, or questions at the [Issues Tracker
 ## Releases
 
 ### Sjakk 2019
-Alpha 1: [Sjakk 2019 v0.1.285-alpha.1](https://github.com/snorkelbuckle/sjakk/releases/tag/2019v0.1.285-alpha.1)
+Find releases here: https://github.com/snorkelbuckle/sjakk/releases
+
