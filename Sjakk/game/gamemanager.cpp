@@ -97,12 +97,16 @@ void GameManager::gameTabClosedEvent(int index)
     GameBoard *gb = qobject_cast<GameBoard *>(m_GameTabs->widget(index));
 
     if (gb == nullptr)
+        {
         return;
+        }
 
     int gameid = gb->PositionData()->GameID();
 
     if (gameid == -1)
+        {
         return;
+        }
 
     QString close_command;
     QString prompt_query;
@@ -129,25 +133,32 @@ void GameManager::gameTabClosedEvent(int index)
     switch (gb->CanClose())
         {
         case GameFlags::CloseAllowed:
-            emit signalSocketWriteRequest(close_command);
+            if (!gb->GameOver())
+                {
+                emit signalSocketWriteRequest(close_command);
+                }
+
             break;
 
         case GameFlags::CloseNotAllowed:
             return;
 
         case GameFlags::PromptFirst:
-            QMessageBox::StandardButton message_button;
-            message_button = QMessageBox::question(m_GameTabs->widget(index), "Are you sure?",
-                                                   "Do you want to resign this game?", QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
-
-            switch (message_button)
+            if (!gb->GameOver())
                 {
-                case QMessageBox::Yes:
-                    emit signalSocketWriteRequest(QString("resign"));
-                    break;
+                QMessageBox::StandardButton message_button;
+                message_button = QMessageBox::question(m_GameTabs->widget(index), "Are you sure?", prompt_query, QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
 
-                default:
-                    return;
+                switch (message_button)
+                    {
+                    case QMessageBox::Yes:
+                        emit signalSocketWriteRequest(QString("resign"));
+                        emit signalSocketWriteRequest("iset seekinfo 1");
+                        break;
+
+                    default:
+                        return;
+                    }
                 }
 
             break;
@@ -161,7 +172,9 @@ void GameManager::gameTabClosedEvent(int index)
 void GameManager::serverDisconnect()
     {
     foreach (GameBoard *gb, gameid_board_map)
+        {
         gb->setGameOver("server disconnect");
+        }
 
     // Just make one sound for server disconnect
     // TODO: replace with server disconnect sound

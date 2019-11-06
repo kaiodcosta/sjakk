@@ -1,5 +1,5 @@
 -A5
---remove-braces
+--add-braces
 --align-pointer=name
 --pad-oper
 --break-blocks

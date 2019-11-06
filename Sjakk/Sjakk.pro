@@ -40,6 +40,7 @@ SOURCES += \
     game/gamemanager.cpp \
     historylineedit.cpp \
     infomanager.cpp \
+    logger.cpp \
     main.cpp \
     sjakkwindow.cpp \
     soundmanager.cpp \
@@ -69,8 +70,10 @@ HEADERS += \
     game/gameboard.h \
     game/gameflags.h \
     game/gamemanager.h \
+    global.h \
     historylineedit.h \
     infomanager.h \
+    logger.h \
     sjakkwindow.h \
     soundmanager.h \ \
     timeseal/timeseal.h
@@ -105,7 +108,9 @@ DISTFILES += \
     reference/sample-input-gamelisting.txt \
     reference/seekinfo-spec.txt \
     reference/style12-spec.txt \
+    tools/Create-NsisDefines.ps1 \
     tools/Create-NsisFilesInstallSection.ps1 \
+    tools/Create-NsisFilesList.ps1 \
     tools/Create-NsisPackage.ps1 \
     tools/Get-FolderSize.ps1 \
     tools/Create-VersionHeader.ps1 \

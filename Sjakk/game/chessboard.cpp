@@ -22,9 +22,13 @@ along with Sjakk.  If not, see <https://www.gnu.org/licenses/>.
 void ChessBoard::moveIconTo(QPointF pos, bool center)
     {
     if (center)
+        {
         this->itemInMotion->pieceIconFillArea.moveCenter(pos);
+        }
     else
+        {
         this->itemInMotion->pieceIconFillArea.moveTo(pos);
+        }
 
     this->update();
     }
@@ -35,7 +39,9 @@ void ChessBoard::resetChessBoard()
     m_chessgrid.resize(this->Files());
 
     for (int i = 0; i < this->Files(); i++)
+        {
         m_chessgrid[i].resize(this->Ranks());
+        }
 
     for (int file = 0; file < this->Files(); file++)
         {
@@ -52,7 +58,9 @@ void ChessBoard::drawCheckerBoard(QPainter *p)
     for (int file = 0; file < this->Files(); ++file)
         {
         for (int rank = 0; rank < this->Ranks(); ++rank)
+            {
             this->drawSquare(p, file, rank);
+            }
         }
     }
 
@@ -71,7 +79,9 @@ void ChessBoard::drawPieces(QPainter *p)
     for (int file = 0; file < this->Files(); ++file)
         {
         for (int rank = 0; rank < this->Ranks(); ++rank)
+            {
             this->drawPiece(p, file, rank);
+            }
         }
     }
 
@@ -80,7 +90,9 @@ void ChessBoard::drawPiece(QPainter *p, int file, int rank)
     ChessSquare *sq = m_chessgrid[file][rank];
 
     if (!sq->pieceIcon.isNull())
+        {
         sq->pieceIcon.paint(p, sq->pieceIconFillArea.toRect(), Qt::AlignCenter);
+        }
     }
 
 void ChessBoard::drawSquareHighLights(QPainter *p)
@@ -189,6 +201,8 @@ void ChessBoard::updateChessSquareGeometry(ChessSquare *sq, int file, int rank)
 
 ChessBoard::ChessBoard(QWidget *parent) : QWidget(parent)
     {
+    m_Files = 0;
+    m_Ranks = 0;
     this->setFiles(8);
     this->setRanks(8);
     this->setWhiteOnTop(false);
@@ -212,12 +226,18 @@ GameFlags::PieceType ChessBoard::putPiece(GameFlags::PieceType ptype, int file, 
     sq->pieceType = ptype;
 
     if (sq->pieceType != GameFlags::PieceType::NoPiece)
+        {
         sq->pieceIcon = m_chesspieces.value(ptype, QIcon());
+        }
     else
+        {
         sq->pieceIcon = QIcon();
+        }
 
     if (!delay)
+        {
         update();
+        }
 
     return original_piece;
     }
@@ -240,7 +260,9 @@ void ChessBoard::putPosition(QVector<QVector<GameFlags::PieceType> > position)
             current = m_chessgrid[f][r]->pieceType;
 
             if (current != target)
+                {
                 putPiece(target, f, r, true);
+                }
             }
         }
 
@@ -290,7 +312,9 @@ QPen ChessBoard::MoveHightlightPen() const
 void ChessBoard::setDarkSquareColor(QColor DarkSquareColor)
     {
     if (this->m_DarkSquareColor == DarkSquareColor)
+        {
         return;
+        }
 
     this->m_DarkSquareColor = DarkSquareColor;
     this->updateChessBoardColors();
@@ -299,7 +323,9 @@ void ChessBoard::setDarkSquareColor(QColor DarkSquareColor)
 void ChessBoard::setLightSquareColor(QColor LightSquareColor)
     {
     if (this->m_LightSquareColor == LightSquareColor)
+        {
         return;
+        }
 
     this->m_LightSquareColor = LightSquareColor;
     this->updateChessBoardColors();
@@ -308,15 +334,21 @@ void ChessBoard::setLightSquareColor(QColor LightSquareColor)
 void ChessBoard::setFiles(int Files)
     {
     if (Files <= 0)
+        {
         return;
+        }
 
     if (m_Files == Files)
+        {
         return;
+        }
 
     m_Files = Files;
 
     if (m_Ranks <= 0)
+        {
         return;
+        }
 
     this->resetChessBoard();
     this->updateChessBoardColors();
@@ -327,15 +359,21 @@ void ChessBoard::setFiles(int Files)
 void ChessBoard::setRanks(int Ranks)
     {
     if (Ranks <= 0)
+        {
         return;
+        }
 
     if (m_Ranks == Ranks)
+        {
         return;
+        }
 
     m_Ranks = Ranks;
 
     if (m_Files <= 0)
+        {
         return;
+        }
 
     this->resetChessBoard();
     this->updateChessBoardColors();
@@ -346,7 +384,9 @@ void ChessBoard::setRanks(int Ranks)
 void ChessBoard::setWhiteOnTop(bool WhiteOnTop)
     {
     if (this->m_WhiteOnTop == WhiteOnTop)
+        {
         return;
+        }
 
     this->m_WhiteOnTop = WhiteOnTop;
     this->updateChessBoardGeometry();
@@ -392,7 +432,10 @@ void ChessBoard::mousePressEvent(QMouseEvent *event)
 
     if (getFileRankFromPos(file, rank, event->localPos()))
         {
-        if (IsPieceMoveAllowed(file, rank) == false) return;
+        if (IsPieceMoveAllowed(file, rank) == false)
+            {
+            return;
+            }
 
         this->itemInMotion = m_chessgrid[file][rank];
         this->itemOriginalPosition = this->itemInMotion->fillArea.topLeft();
@@ -400,7 +443,9 @@ void ChessBoard::mousePressEvent(QMouseEvent *event)
         this->itemOrigRank = rank;
         }
     else
+        {
         this->itemInMotion = nullptr;
+        }
     }
 
 bool ChessBoard::IsPieceMoveAllowed(int file, int rank)
@@ -413,12 +458,24 @@ bool ChessBoard::IsPieceMoveAllowed(int file, int rank)
             return true;
 
         case GameFlags::AcceptMouse::AcceptWhiteInput:
-            if (GameFlags::ConvertToColor(piece) == GameFlags::PlayerColor::White) return true;
-            else return false;
+            if (GameFlags::ConvertToColor(piece) == GameFlags::PlayerColor::White)
+                {
+                return true;
+                }
+            else
+                {
+                return false;
+                }
 
         case GameFlags::AcceptMouse::AcceptBlackInput:
-            if (GameFlags::ConvertToColor(piece) == GameFlags::PlayerColor::Black) return true;
-            else return false;
+            if (GameFlags::ConvertToColor(piece) == GameFlags::PlayerColor::Black)
+                {
+                return true;
+                }
+            else
+                {
+                return false;
+                }
 
         case GameFlags::AcceptMouse::AcceptNone:
             return false;
@@ -439,7 +496,9 @@ void ChessBoard::mouseReleaseEvent(QMouseEvent *event)
                 ((itemOrigFile == file) && (itemOrigRank == rank)) ||
                 (!IsMyMove())
             )
+                {
                 moveIconTo(itemOriginalPosition, false);
+                }
             else
                 {
                 moveIconTo(itemOriginalPosition, false);
@@ -457,10 +516,14 @@ void ChessBoard::mouseReleaseEvent(QMouseEvent *event)
 void ChessBoard::mouseMoveEvent(QMouseEvent *event)
     {
     if (AcceptMouseInput() == GameFlags::AcceptMouse::AcceptNone)
+        {
         return;
+        }
 
     if (this->itemInMotion)
+        {
         this->moveIconTo(event->localPos(), true);
+        }
     }
 
 void ChessBoard::paintEvent(QPaintEvent *event)

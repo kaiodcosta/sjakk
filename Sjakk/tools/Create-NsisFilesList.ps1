@@ -52,7 +52,7 @@ Function Build-Uninstall-List
     foreach ($fitem in $file_list)
     {
         $chopped_file = $fitem.Remove(0,$chop_path.Length + 1)
-        "delete {0}" -f $chopped_file
+        "delete `$INSTDIR\{0}" -f $chopped_file
     }
     
     if ($Folder -ne $PackageDir)

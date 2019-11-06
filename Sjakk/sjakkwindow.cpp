@@ -33,7 +33,9 @@ void SjakkWindow::setupGameManager()
 void SjakkWindow::setPreferencesDefaults()
     {
     if (!options->contains("credentials"))
+        {
         options->set_map("credentials", QMap<QString, QVariant>());
+        }
 
     if (!options->contains("chess_sets"))
         {
@@ -83,7 +85,9 @@ void SjakkWindow::setPreferencesDefaults()
         }
 
     if (wgts.count() > 0)
+        {
         options->set_structure("widgets", wgts);
+        }
 
     QMap<QString, QMap<QString, QVariant>> cnct;
 
@@ -109,7 +113,9 @@ void SjakkWindow::setPreferencesDefaults()
         }
 
     if (cnct.count() > 0)
+        {
         options->set_structure("connection", cnct);
+        }
 
     QMap<QString, QMap<QString, QVariant>> skr;
 
@@ -129,7 +135,9 @@ void SjakkWindow::setPreferencesDefaults()
         }
 
     if (skr.count() > 0)
+        {
         options->set_structure("seek", skr);
+        }
 
     if (!options->contains("soundfx"))
         {
@@ -166,7 +174,9 @@ void SjakkWindow::restoreWindowGeometryPrefs()
     QList<int> gsizes;
 
     foreach (QVariant i, options->get_list("gamesplitter"))
+        {
         gsizes.append(i.toInt());
+        }
 
     ui->gameSplitter->setSizes(gsizes);
     }
@@ -199,7 +209,9 @@ void SjakkWindow::saveWindowGeometryPrefs()
     QList<QVariant> gs;
 
     for (int i = 0; i < ui->gameSplitter->sizes().count(); i++)
+        {
         gs.append(ui->gameSplitter->sizes().at(i));
+        }
 
     options->set_list("gamesplitter", gs);
     }
@@ -293,7 +305,9 @@ void SjakkWindow::writeSocketLine(QByteArray msg)
 void SjakkWindow::commandInputEvent()
     {
     if (this->socket->state() == QTcpSocket::ConnectedState)
+        {
         writeSocketLine(QByteArray(QString(ui->cmdLine->text()).toLatin1()).data());
+        }
 
     writeConsoleLine(ui->cmdLine->text().toLatin1(), Qt::GlobalColor::blue, QFont::Black);
     ui->cmdLine->setText("");
@@ -335,7 +349,9 @@ void SjakkWindow::connectClickedEvent(bool checked)
                 }
 
             if (result == QDialog::DialogCode::Rejected)
+                {
                 ui->actionConnect->setChecked(false);
+                }
             }
         }
     else
@@ -367,7 +383,9 @@ void SjakkWindow::seekClickedEvent(bool checked)
     QString seek_ad;
 
     if (result == QDialog::DialogCode::Accepted)
+        {
         writeSocketLine(seek_dialog.getSeekRequest());
+        }
     }
 void SjakkWindow::seek1ClickedEvent(bool checked)
     {
@@ -391,7 +409,9 @@ void SjakkWindow::preferencesClickedEvent(bool checked)
     int result = pref_dialog.exec();
 
     if (result == QDialog::DialogCode::Accepted)
+        {
         restoreConsolePrefs();
+        }
     }
 void SjakkWindow::RequestGamesList()
     {
@@ -406,7 +426,9 @@ void SjakkWindow::infoTabChangedEvent(int index)
     QWidget *wdgt = ui->infoTabs->widget(index);
 
     if (wdgt == nullptr)
+        {
         return;
+        }
 
     if (wdgt == ui->gamesTab)
         {
@@ -414,7 +436,9 @@ void SjakkWindow::infoTabChangedEvent(int index)
         RequestGamesList();
         }
     else
+        {
         refreshGamesListButton->setVisible(false);
+        }
     }
 void SjakkWindow::socketReadyReadEvent()
     {
@@ -423,14 +447,20 @@ void SjakkWindow::socketReadyReadEvent()
     qInfo().noquote() << receivedData;
 
     if (!loggedIn)
+        {
         this->parser->parseAuthentication(receivedData);
+        }
     else
+        {
         this->parser->parseServerData(receivedData);
+        }
     }
 void SjakkWindow::socketConnectedEvent()
     {
     if (conn_opts["default"]["timeseal"].toBool())
+        {
         writeSocketLine(timeseal->hello());
+        }
 
     writeConsoleLine("Connected to server", Qt::GlobalColor::blue);
     }
@@ -458,9 +488,13 @@ void SjakkWindow::parserReadyTextEvent(QByteArray buffer)
 void SjakkWindow::parserLoginPromptEvent()
     {
     if (conn_opts["selected"]["type"].toString() == "guest")
+        {
         writeSocketLine("guest");
+        }
     else
+        {
         writeSocketLine(QString("%1").arg(conn_opts["selected"]["user"].toString()).toLatin1());
+        }
     }
 void SjakkWindow::parserPasswordPromptEvent()
     {
@@ -504,10 +538,14 @@ void SjakkWindow::Debug1()
 void SjakkWindow::closeEvent(QCloseEvent *event)
     {
     if (this->socket)
+        {
         delete socket;
+        }
 
     if (this->parser)
+        {
         delete parser;
+        }
 
     savePreferences();
     event->accept();
@@ -530,9 +568,13 @@ SjakkWindow::SjakkWindow(QWidget *parent) :
     ui->infoTabs->setCornerWidget(refreshGamesListButton, Qt::Corner::TopRightCorner);
 
     if (ui->infoTabs->currentWidget() == ui->gamesTab)
+        {
         refreshGamesListButton->setVisible(true);
+        }
     else
+        {
         refreshGamesListButton->setVisible(false);
+        }
 
     loggedIn = false;
     setupInfoManager();
