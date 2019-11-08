@@ -27,7 +27,9 @@ QMap<QString, QVariant> ConfigSettings::get_map(QString map_name)
     QMap<QString, QVariant> opts;
 
     foreach (QString key, config_obj->childKeys())
+        {
         opts.insert(key, config_obj->value(key));
+        }
 
     config_obj->endGroup();
     return opts;
@@ -44,7 +46,9 @@ QMap<QString, QMap<QString, QVariant> > ConfigSettings::get_structure(QString st
         config_obj->beginGroup(struct_key);
 
         foreach (QString map_key, config_obj->childKeys())
+            {
             map_obj.insert(map_key, config_obj->value(map_key));
+            }
 
         config_obj->endGroup();
         struct_obj.insert(struct_key, map_obj);
@@ -62,14 +66,29 @@ void ConfigSettings::set_ini_path(QString file_path)
 ConfigSettings *ConfigSettings::Instance()
     {
     if (instance == nullptr)
+        {
         instance = new ConfigSettings;
+        }
 
     return instance;
     }
 
-bool ConfigSettings::contains(QString key)
+bool ConfigSettings::contains_map(QString map_name)
     {
-    return config_obj->contains(key);
+    return config_obj->childGroups().contains(map_name);
+    }
+
+bool ConfigSettings::contains_structure(QString struct_name)
+    {
+    return contains_map(struct_name);
+    }
+
+bool ConfigSettings::contains_structure_map(QString struct_name, QString map_name)
+    {
+    config_obj->beginGroup(struct_name);
+    bool contained = config_obj->childGroups().contains(map_name);
+    config_obj->endGroup();
+    return contained;
     }
 
 void ConfigSettings::clear_map(QString map_name)
@@ -115,7 +134,9 @@ void ConfigSettings::set_map(QString map_name, QMap<QString, QVariant> map_obj)
     config_obj->beginGroup(map_name);
 
     foreach (QString key, map_obj.keys())
+        {
         config_obj->setValue(key, map_obj[key]);
+        }
 
     config_obj->endGroup();
     }
@@ -130,7 +151,9 @@ void ConfigSettings::set_structure(QString struct_name, QMap<QString, QMap<QStri
         QMap<QString, QVariant> item = struct_obj.value(struct_key);
 
         foreach (QString map_key, item.keys())
+            {
             config_obj->setValue(map_key, item.value(map_key));
+            }
 
         config_obj->endGroup();
         }
@@ -141,5 +164,10 @@ void ConfigSettings::set_structure(QString struct_name, QMap<QString, QMap<QStri
 void ConfigSettings::sync()
     {
     config_obj->sync();
+    }
+
+QSettings *ConfigSettings::settings()
+    {
+    return config_obj;
     }
 

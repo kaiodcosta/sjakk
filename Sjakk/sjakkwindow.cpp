@@ -32,12 +32,17 @@ void SjakkWindow::setupGameManager()
  */
 void SjakkWindow::setPreferencesDefaults()
     {
-    if (!options->contains("credentials"))
+    foreach (QString k, options->settings()->allKeys())
+        {
+        qDebug() << "key=" << k << ", value=" << options->settings()->value(k);
+        }
+
+    if (!options->contains_structure("credentials"))
         {
         options->set_map("credentials", QMap<QString, QVariant>());
         }
 
-    if (!options->contains("chess_sets"))
+    if (!options->contains_map("chess_sets"))
         {
         QMap<QString, QMap<QString, QVariant>> chess_sets;
         QMap<QString, QVariant> set_one;
@@ -59,7 +64,7 @@ void SjakkWindow::setPreferencesDefaults()
 
     QMap<QString, QMap<QString, QVariant>> wgts;
 
-    if (!options->contains("widgets/console"))
+    if (!options->contains_structure_map("widgets", "console"))
         {
         QMap<QString, QVariant> con;
         con.insert("font", "Consolas");
@@ -68,7 +73,7 @@ void SjakkWindow::setPreferencesDefaults()
         wgts.insert("console", con);
         }
 
-    if (!options->contains("widgets/mainwindow"))
+    if (!options->contains_structure_map("widgets", "mainwindow"))
         {
         QMap<QString, QVariant> con;
         con.insert("size", QSize(1068, 723));
@@ -76,7 +81,7 @@ void SjakkWindow::setPreferencesDefaults()
         wgts.insert("mainwindow", con);
         }
 
-    if (!options->contains("gamesplitter"))
+    if (!options->contains_map("gamesplitter"))
         {
         QList<QVariant> gs;
         gs.append(462);
@@ -91,7 +96,7 @@ void SjakkWindow::setPreferencesDefaults()
 
     QMap<QString, QMap<QString, QVariant>> cnct;
 
-    if (!options->contains("connection/default"))
+    if (!options->contains_structure_map("connection", "default"))
         {
         QMap<QString, QVariant> con;
         con.insert("address", "freechess.org");
@@ -100,7 +105,7 @@ void SjakkWindow::setPreferencesDefaults()
         cnct.insert("default", con);
         }
 
-    if (!options->contains("connection/selected"))
+    if (!options->contains_structure_map("connection", "selected"))
         {
         QMap<QString, QVariant> con;
         con.insert("address", "freechess.org");
@@ -119,7 +124,7 @@ void SjakkWindow::setPreferencesDefaults()
 
     QMap<QString, QMap<QString, QVariant>> skr;
 
-    if (!options->contains("seek/default"))
+    if (!options->contains_structure_map("seek", "default"))
         {
         QMap<QString, QVariant> con;
         con.insert("color", "");
@@ -139,7 +144,7 @@ void SjakkWindow::setPreferencesDefaults()
         options->set_structure("seek", skr);
         }
 
-    if (!options->contains("soundfx"))
+    if (!options->contains_map("soundfx"))
         {
         QMap<QString, QVariant> snds;
         snds.insert("game_over", ":/media/sounds/game-over.wav");
@@ -147,7 +152,7 @@ void SjakkWindow::setPreferencesDefaults()
         options->set_map("soundfx", snds);
         }
 
-    if (!options->contains("gameboard"))
+    if (!options->contains_map("gameboard"))
         {
         QMap<QString, QVariant> gb;
         gb.insert("dark_square_color", QColor(85, 107, 47, 255));
@@ -561,6 +566,7 @@ SjakkWindow::SjakkWindow(QWidget *parent) :
     {
     ui->setupUi(this);
     options = ConfigSettings::Instance();
+    options->sync();
     restorePreferences();
     ui->outputConsole->setLineWrapMode(QTextEdit::LineWrapMode::NoWrap);
     ui->outputConsole->document()->setMaximumBlockCount(1000);

@@ -25,9 +25,13 @@ void PreferencesDialog::InitUiState()
     ui->pushButton_apply->setDisabled(true);
 
     if (static_cast<QTextOption::WrapMode>(wgt_opts["console"]["wordwrap"].toInt()) == QTextOption::WrapMode::WordWrap)
+        {
         ui->checkBox_wordwrap->setChecked(true);
+        }
     else
+        {
         ui->checkBox_wordwrap->setChecked(false);
+        }
 
     for (int i = 0; i < ui->fontComboBox_console->count(); i++)
         {
@@ -39,6 +43,7 @@ void PreferencesDialog::InitUiState()
         }
 
     ui->doubleSpinBox_pointsize->setValue(wgt_opts["console"]["pointsize"].toDouble());
+    ui->label_prefslocation->setText(QString("Preferences Location: %1").arg(options->get_map("info").value("preferences_location").toString()));
     }
 
 void PreferencesDialog::saveOptions()

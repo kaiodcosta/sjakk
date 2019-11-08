@@ -41,7 +41,9 @@ QString writable_config_file()
         QDir candidate_dir(path);
 
         if (!candidate_dir.exists())
+            {
             continue;
+            }
 
         bool self_writable = false;
 
@@ -55,7 +57,9 @@ QString writable_config_file()
             }
 
         if (self_writable == false)
+            {
             continue;
+            }
 
         config_file = candidate_dir.absoluteFilePath(QString("%1.ini").arg(MY_APPNAME));
         }
@@ -70,7 +74,11 @@ int main(int argc, char *argv[])
     QApplication::setOrganizationDomain(MY_ORGDOMAIN);
     QApplication::setApplicationName(MY_APPNAME);
     ConfigSettings *options = ConfigSettings::Instance();
-    options->set_ini_path(writable_config_file());
+    QString file_name = writable_config_file();
+    options->set_ini_path(file_name);
+    QMap<QString, QVariant> info;
+    info.insert("preferences_location", file_name);
+    options->set_map("info", info);
     QMap<QString, QVariant> org_info;
     org_info.insert("application_name", MY_APPNAME);
     org_info.insert("organization_name", MY_ORGNAME);

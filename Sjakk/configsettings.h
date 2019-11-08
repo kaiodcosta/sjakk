@@ -29,7 +29,9 @@ class ConfigSettings
     public:
         static ConfigSettings *Instance();
 
-        bool contains(QString key);
+        bool contains_map(QString map_name);
+        bool contains_structure(QString struct_name);
+        bool contains_structure_map(QString struct_name, QString map_name);
 
         void clear_map(QString map_name);
         void clear_structure(QString struct_name);
@@ -46,14 +48,15 @@ class ConfigSettings
         void sync();
 
 
+
+        QSettings *settings();
+
     private:
         ConfigSettings() {}
         ConfigSettings(ConfigSettings const &) {}
         ConfigSettings &operator=(ConfigSettings const &) {}
         static ConfigSettings *instance;
-
-        QSettings *config_obj;
-
+        QSettings *config_obj = nullptr;
     };
 
 #endif // CONFIGSETTINGS_H

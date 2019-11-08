@@ -93,17 +93,21 @@ void InfoManager::ficsSeekInfoEvent(FicsSeeker *seeker)
     m_SeekerModel->insertRows(0, 1, QModelIndex());
     QModelIndex index = m_SeekerModel->index(0, 0, QModelIndex());
     m_SeekerModel->setData(index, *seeker, Qt::EditRole);
+    m_SeekerTable->resizeColumnsToContents();
     }
 
 void InfoManager::ficsSeekRemoveEvent(QList<int> *removelist)
     {
     foreach (int sid, *removelist)
+        {
         m_SeekerModel->removeSeekerByID(sid);
+        }
     }
 
 void InfoManager::ficsSeekClearEvent()
     {
     m_SeekerModel->clearRows();
+    m_SeekerTable->resizeColumnsToContents();
     }
 
 void InfoManager::ficsGameListEvent(FicsGameInfo *ginfo)
@@ -144,7 +148,9 @@ void InfoManager::gameInfoDblClickedEvent(const QModelIndex &qmi)
     FicsGameInfo ginfo = m_GameInfoModel->data(srcindex);
 
     if (ginfo.GameID() == -1)
+        {
         return;
+        }
 
     qDebug() << "observe request for " << ginfo.GameID();
     emit socketWriteRequest(QString("observe %1").arg(ginfo.GameID()));

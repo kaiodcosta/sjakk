@@ -8,6 +8,6 @@
 #define MY_VERSIONYEAR "2019"
 #define MY_VERSIONMINOR "1"
 #define MY_VERSIONMAJOR "0"
-#define MY_VERSIONBUILD "299"
+#define MY_VERSIONBUILD "318"
 
 #endif // CONFIG_H
