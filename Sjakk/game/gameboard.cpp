@@ -84,9 +84,13 @@ bool GameBoard::GameOver() const
 void GameBoard::FicsStyle12Event(FicsStyle12 *fics_style12, bool is_update)
     {
     if (IAmPlayingGame(fics_style12->MyRelation()))
+        {
         setCanClose(GameFlags::GameClose::PromptFirst);
+        }
     else
+        {
         setCanClose(GameFlags::GameClose::CloseAllowed);
+        }
 
     this->setPositionData(fics_style12);
     this->ui->chessBoardWidget->putPosition(m_PositionData->Position());
@@ -96,14 +100,21 @@ void GameBoard::FicsStyle12Event(FicsStyle12 *fics_style12, bool is_update)
     this->updateLag();
     ui->chessBoardWidget->setIsMyMove(fics_style12->IsMyMove());
 
-    if (is_update) return;
+    if (is_update)
+        {
+        return;
+        }
 
     m_GameOver = false;
 
     if (fics_style12->MyColor() == GameFlags::PlayerColor::White)
+        {
         ui->chessBoardWidget->setWhiteOnTop(false);
+        }
     else
+        {
         ui->chessBoardWidget->setWhiteOnTop(true);
+        }
 
     switch (this->PositionData()->MyRelation())
         {
@@ -137,7 +148,10 @@ void GameBoard::chessMoveEvent(GameFlags::PieceType source_piece, int fromFile,
 
 void GameBoard::updateGameInfo(FicsGameInfo *ginfo)
     {
-    if (m_GameOver) return;
+    if (m_GameOver)
+        {
+        return;
+        }
 
     QString relation;
 
@@ -170,7 +184,10 @@ void GameBoard::updateGameInfo(FicsGameInfo *ginfo)
 
 void GameBoard::updatePlayerInfo(FicsGameInfo *ginfo)
     {
-    if (m_GameOver) return;
+    if (m_GameOver)
+        {
+        return;
+        }
 
     if (ui->chessBoardWidget->WhiteOnTop())
         {
@@ -202,6 +219,11 @@ void GameBoard::setGameOver(FicsBannerInfo *banner_info)
 
 void GameBoard::setGameOver(QString reason)
     {
+    if (m_GameOver)
+        {
+        return;
+        }
+
     m_GameOver = true;
     StopClocks();
     setCanClose(GameFlags::CloseAllowed);
@@ -267,7 +289,9 @@ void GameBoard::updateClocks()
 void GameBoard::updateLastMoved()
     {
     if (PositionData()->VerboseCoordinateNotationPreviousMove() == "none")
+        {
         return;
+        }
 
     QRegularExpression *foo = new QRegularExpression(R"foo((.)/(..)-(..))foo");
     QRegularExpressionMatch m1 = foo->match(PositionData()->VerboseCoordinateNotationPreviousMove());
@@ -307,16 +331,24 @@ void GameBoard::updateLag()
     if (ui->chessBoardWidget->WhiteOnTop())
         {
         if (m_PositionData->WhiteToMove() == false)
+            {
             ui->label_top_lag->setText(lastmovelag);
+            }
         else
+            {
             ui->label_bottom_lag->setText(lastmovelag);
+            }
         }
     else
         {
         if (m_PositionData->WhiteToMove() == false)
+            {
             ui->label_bottom_lag->setText(lastmovelag);
+            }
         else
+            {
             ui->label_top_lag->setText(lastmovelag);
+            }
         }
     }
 
@@ -325,7 +357,12 @@ bool GameBoard::IAmPlayingGame(FicsStyle12::GameRelation relation)
     {
     if ((relation == FicsStyle12::GameRelation::IAMPLAYINGMYMOVE)
             || (relation == FicsStyle12::GameRelation::IAMPLAYINGOPPONENTMOVE))
+        {
         return true;
-    else return false;
+        }
+    else
+        {
+        return false;
+        }
     }
 
